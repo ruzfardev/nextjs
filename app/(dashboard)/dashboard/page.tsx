@@ -8,15 +8,21 @@ const Dashboard = async () => {
   const albums = await responseToAlbums.json();
 
   return (
-    <div>
-      <h1 className="text-2xl">Dashboard</h1>
-      <ul>
+    <div className="p-8 bg-gray-900">
+      <h1 className="text-2xl font-bold mb-6 text-white">Dashboard</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {albums.map((album: { id: number; title: string }) => (
-          <li key={album.id}>
-            <h2>{album.title}</h2>
-          </li>
+          <div
+            key={album.id}
+            className="bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-xl transition-shadow border border-gray-700"
+          >
+            <span className="text-gray-400 text-sm">{album.id}</span>
+            <h2 className="text-lg font-semibold mt-1 text-white">
+              {album.title}
+            </h2>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
