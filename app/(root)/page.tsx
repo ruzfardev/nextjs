@@ -1,5 +1,7 @@
 import Search from "@/components/search/Search";
 import StartupCard from "@/components/startup-card/StartupCard";
+import { client } from "@/sanity/lib/client";
+import { STARTUP_QUERY } from "@/sanity/lib/queries";
 
 interface Props {
   searchParams: Promise<{ query?: string }>;
@@ -7,21 +9,8 @@ interface Props {
 
 export default async function Home({ searchParams }: Props) {
   const { query } = await searchParams;
-  const startups = [
-    {
-      _createdAt: "2023-09-10T12:34:56Z",
-      views: 100,
-      author: { _id: 1, name: "John Doe" },
-      _id: 1,
-      title: "Innovative App",
-      category: "Technology",
-      description:
-        "A revolutionary app that connects people with similar interests.",
-      image:
-        "https://images.pexels.com/photos/807598/pexels-photo-807598.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    },
-    // Add more startup objects as needed
-  ];
+
+  const startups = await client.fetch(STARTUP_QUERY);
   return (
     <>
       <section className="pink_container">

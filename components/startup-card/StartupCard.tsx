@@ -4,20 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
+import { Author, Startup } from "@/sanity/types";
+
+export type Card = Omit<Startup, "author"> & {
+  author?: Author;
+};
+
 interface Props {
-  startup: {
-    _id: number;
-    _createdAt: string;
-    title: string;
-    description: string;
-    image: string;
-    views: number;
-    category: string;
-    author: {
-      _id: number;
-      name: string;
-    };
-  };
+  startup: Card;
 }
 
 const StartupCard = ({ startup }: Props) => {
@@ -32,8 +26,10 @@ const StartupCard = ({ startup }: Props) => {
       </div>
       <div className="flex-between mt-5 gap-5">
         <div className="flex-1">
-          <Link href={`/user/${startup.author._id}`}>
-            <p className="text-16-medium line-clamp-1">{startup.author.name}</p>
+          <Link href={`/user/${startup.author?._id}`}>
+            <p className="text-16-medium line-clamp-1">
+              {startup.author?.name}
+            </p>
           </Link>
           <Link href={`/startup/${startup._id}`}>
             <h3 className="text-26-semibold line-clamp-1">
@@ -41,7 +37,7 @@ const StartupCard = ({ startup }: Props) => {
             </h3>
           </Link>
         </div>
-        <Link href={`/user/${startup.author._id}`}>
+        <Link href={`/user/${startup.author?._id}`}>
           <Image
             src="https://i.pravatar.cc/600"
             alt="placeholder"
