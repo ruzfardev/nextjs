@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-export const Navbar = async () => {
+const Navbar = async () => {
   const session = await auth();
 
   const handleLogin = async () => {
@@ -55,3 +55,5 @@ export const Navbar = async () => {
     </header>
   );
 };
+
+export default Navbar;
